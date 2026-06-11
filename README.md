@@ -14,8 +14,8 @@ tool actually reads.
 ```
 design-studio-ai/
 ├── figma-make/    instructions (Guidelines.md) + skills (SKILL.md)
-├── notion-ai/     instructions + skills (pages) + agents
-└──  copilot/       instructions (copilot-instructions.md) + prompts
+├── notion-ai/     instructions + skills (.md pages) + agents
+└── vibe-coding/   skills for internal vibe-coding tool and repo (ux-playground, vx0)
 ```
 
 There is no shared folder. A reusable instruction like a house style has to be repackaged
