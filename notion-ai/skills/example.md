@@ -1,4 +1,4 @@
-# Notion skill template
+# Notion skill template 2026
 
 **Role:** One sentence describing who the AI is acting as and its area of expertise.
 
