@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTA Bento – View Selector</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 40px;
+    }
+    h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+    p { color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px; }
+    .cards { display: flex; gap: 24px; }
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 280px;
+      height: 180px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #fff;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    a:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+    .card__icon { font-size: 40px; margin-bottom: 12px; }
+    .card__label { font-size: 16px; font-weight: 600; }
+    .card__desc { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>OTA Bento Viewer</h1>
+    <p>Both views are driven by the same <code>bento-data.json</code></p>
+  </div>
+  <div class="cards">
+    <a href="bento-slide.html">
+      <span class="card__icon">🖥️</span>
+      <span class="card__label">Slide View</span>
+      <span class="card__desc">Fixed 1920×1080 for presentations</span>
+    </a>
+    <a href="bento-web.html">
+      <span class="card__icon">🌐</span>
+      <span class="card__label">Web View</span>
+      <span class="card__desc">Responsive, scrollable, interactive</span>
+    </a>
+  </div>
+</body>
+</html>

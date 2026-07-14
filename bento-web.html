@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTA Bento – Responsive Web View</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* === HEADER === */
+    .header {
+      padding: 60px 48px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header__logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 16px;
+    }
+
+    .header__title {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .header__subtitle {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+    }
+
+    /* === SECTIONS === */
+    .section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px 60px;
+    }
+
+    .section__label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      padding-left: 4px;
+    }
+
+    /* === HERO GRID === */
+    .grid-heroes {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: 400px;
+      gap: 16px;
+    }
+
+    /* === MEDIUM GRID === */
+    .grid-medium {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    /* === SMALL GRID === */
+    .grid-small {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    /* === TILES === */
+    .tile {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* Heroes */
+    .tile--hero {
+      min-height: 400px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    .tile--hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      z-index: 1;
+    }
+
+    .tile--hero .tile__content { position: relative; z-index: 2; }
+
+    .hero-0 { background: linear-gradient(135deg, #1a237e, #283593, #0d47a1); }
+    .hero-1 { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
+    .hero-2 { background: linear-gradient(135deg, #b71c1c, #d32f2f); }
+
+    /* Medium */
+    .tile--medium {
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.06);
+      min-height: 260px;
+      cursor: pointer;
+    }
+
+    .tile--medium .tile__icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    /* Small */
+    .tile--small {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 24px;
+      gap: 16px;
+      cursor: default;
+    }
+
+    .tile--small .tile__icon { font-size: 22px; flex-shrink: 0; }
+
+    /* Typography */
+    .tile__headline {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .tile--hero .tile__headline { font-size: 36px; margin-bottom: 8px; }
+    .hero-0 .tile__headline { font-size: 44px; }
+    .tile--small .tile__headline { font-size: 15px; font-weight: 600; }
+
+    .tile__subheadline {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .tile--medium .tile__subheadline { font-size: 14px; }
+
+    /* Tags */
+    .tile__tags { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 5px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); }
+    .tag--safety { background: #e53935; color: #fff; }
+    .tag--platform { background: #7c4dff; color: #fff; }
+    .tag--sustainability { background: #43a047; color: #fff; }
+    .tag--convenience { background: #1e88e5; color: #fff; }
+    .tag--ux { background: #ff8f00; color: #fff; }
+    .tag--new { background: #00bcd4; color: #fff; }
+    .tag--spa { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+
+    .tile--accent-safety { border-left: 3px solid #e53935; }
+    .tile--accent-convenience { border-left: 3px solid #1e88e5; }
+    .tile--accent-other { border-left: 3px solid #444; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .grid-heroes { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .hero-0 { grid-column: 1 / 3; }
+      .grid-medium { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .header { padding: 40px 24px 30px; }
+      .header__title { font-size: 32px; }
+      .section { padding: 0 24px 40px; }
+      .grid-heroes { grid-template-columns: 1fr; }
+      .hero-0 { grid-column: 1; }
+      .grid-medium { grid-template-columns: 1fr; }
+      .grid-small { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" style="position:fixed;top:20px;left:24px;z-index:100;color:rgba(255,255,255,0.6);text-decoration:none;font-family:Georgia,serif;font-size:14px;display:flex;align-items:center;gap:6px;">← <span>back</span></a>
+
+<header class="header" id="header"></header>
+<section class="section" id="heroes-section"></section>
+<section class="section" id="medium-section"></section>
+<section class="section" id="small-section"></section>
+
+<script>
+fetch('bento-data.json').then(r => r.json()).then(data => {
+  const heroes = data.features.filter(f => f.tier === 'hero');
+  const mediums = data.features.filter(f => f.tier === 'medium');
+  const smalls = data.features.filter(f => f.tier === 'small');
+
+  // Header
+  document.getElementById('header').innerHTML = `
+    <div class="header__logo">V O L V O</div>
+    <h1 class="header__title">${data.release.title}</h1>
+    <p class="header__subtitle">${data.release.subtitle}</p>
+  `;
+
+  // Heroes
+  let heroHtml = '<p class="section__label">Highlights</p><div class="grid-heroes">';
+  heroes.forEach((f, i) => {
+    heroHtml += `
+      <div class="tile tile--hero hero-${i}">
+        <div class="tile__content">
+          <h2 class="tile__headline">${f.headline}</h2>
+          <p class="tile__subheadline">${f.subheadline}</p>
+          <div class="tile__tags">
+            <span class="tag tag--${f.tagColor}">${f.tag}</span>
+            <span class="tag tag--spa">${f.platform}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+  heroHtml += '</div>';
+  document.getElementById('heroes-section').innerHTML = heroHtml;
+
+  // Medium
+  let medHtml = '<p class="section__label">Also in this release</p><div class="grid-medium">';
+  mediums.forEach(f => {
+    medHtml += `
+      <div class="tile tile--medium">
+        <div class="tile__content">
+          <div class="tile__icon">${f.icon}</div>
+          <h2 class="tile__headline">${f.headline}</h2>
+          <p class="tile__subheadline">${f.subheadline}</p>
+          <div class="tile__tags">
+            <span class="tag tag--${f.tagColor}">${f.tag}</span>
+            <span class="tag tag--spa">${f.platform}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+  medHtml += '</div>';
+  document.getElementById('medium-section').innerHTML = medHtml;
+
+  // Smalls
+  let smallHtml = '<p class="section__label">More updates</p><div class="grid-small">';
+  smalls.forEach(f => {
+    smallHtml += `
+      <div class="tile tile--small tile--accent-${f.accent}">
+        <span class="tile__icon">${f.icon}</span>
+        <span class="tile__headline">${f.headline}</span>
+      </div>`;
+  });
+  smallHtml += '</div>';
+  document.getElementById('small-section').innerHTML = smallHtml;
+});
+</script>
+</body>
+</html>

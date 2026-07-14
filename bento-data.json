@@ -1,0 +1,122 @@
+{
+  "release": {
+    "id": "rel16",
+    "title": "Software Roadmap 2026 Q3",
+    "subtitle": "Release Highlights (Rel16)",
+    "quarter": "26Q3 Q4"
+  },
+  "features": [
+    {
+      "id": "safety-cluster",
+      "headline": "Safer roads for everyone",
+      "subheadline": "Auto Steer/Brake for pedestrians & cyclists. Steering corrections that keep you on track.",
+      "tier": "hero",
+      "tag": "Safety",
+      "tagColor": "safety",
+      "platform": "SPA3 / SPA2",
+      "image": null
+    },
+    {
+      "id": "gemini-cluster",
+      "headline": "Gemini gets smarter",
+      "subheadline": "More languages, OEM answers, and your Google Companion — all in one assistant.",
+      "tier": "hero",
+      "tag": "Platform",
+      "tagColor": "platform",
+      "platform": "SPA3 / SPA2",
+      "image": null
+    },
+    {
+      "id": "park-pilot",
+      "headline": "Park with confidence",
+      "subheadline": "Ultrasonics detect occupied slots and guide you in and out.",
+      "tier": "hero",
+      "tag": "Safety",
+      "tagColor": "safety",
+      "platform": "SPA3",
+      "image": null
+    },
+    {
+      "id": "v2h-charging",
+      "headline": "Your car powers your home",
+      "subheadline": "Bi-directional charging sends energy back to your grid.",
+      "tier": "medium",
+      "tag": "Sustainability",
+      "tagColor": "sustainability",
+      "platform": "SPA3",
+      "icon": "⚡"
+    },
+    {
+      "id": "carplay-phone",
+      "headline": "Stay connected, hands on wheel",
+      "subheadline": "Apple CarPlay and phone controls via steering wheel.",
+      "tier": "medium",
+      "tag": "Convenience",
+      "tagColor": "convenience",
+      "platform": "SPA3",
+      "icon": "📱"
+    },
+    {
+      "id": "tow-mode",
+      "headline": "Tow with control",
+      "subheadline": "New mode adapts your vehicle for towing scenarios.",
+      "tier": "medium",
+      "tag": "New Feature",
+      "tagColor": "new",
+      "platform": "SPA3",
+      "icon": "🚗"
+    },
+    {
+      "id": "charging-visuals",
+      "headline": "Charging at a glance",
+      "subheadline": "Refreshed status and cable visuals in-car and in-app.",
+      "tier": "medium",
+      "tag": "Better UX",
+      "tagColor": "ux",
+      "platform": "SPA3 / SPA2",
+      "icon": "🔋"
+    },
+    {
+      "id": "resume-pilot",
+      "headline": "Resume Pilot Assist from SW",
+      "tier": "small",
+      "accent": "safety",
+      "icon": "🛡️"
+    },
+    {
+      "id": "isa-button",
+      "headline": "ISA button on steering wheel",
+      "tier": "small",
+      "accent": "safety",
+      "icon": "⚙️"
+    },
+    {
+      "id": "private-locking",
+      "headline": "Private locking in CSD",
+      "tier": "small",
+      "accent": "safety",
+      "icon": "🔒"
+    },
+    {
+      "id": "trailer-lamp",
+      "headline": "Trailer lamp check via CSD",
+      "tier": "small",
+      "accent": "convenience",
+      "icon": "💡"
+    },
+    {
+      "id": "exterior-light",
+      "headline": "Exterior light off in Park",
+      "tier": "small",
+      "accent": "convenience",
+      "icon": "🅿️"
+    },
+    {
+      "id": "trailer-warning",
+      "headline": "Trailer steep slope warning",
+      "tier": "small",
+      "accent": "other",
+      "icon": "⚠️"
+    }
+  ]
+}
