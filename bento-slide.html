@@ -55,11 +55,40 @@
       background: var(--v-color-background-primary);
       display: grid;
       grid-template-columns: 1fr 1fr 280px;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: auto 1fr auto;
       gap: 0;
       padding: var(--v-space-48);
       position: relative;
       overflow: hidden;
+    }
+
+    .bento__header {
+      grid-column: 1 / 4;
+      padding-bottom: var(--v-space-32);
+    }
+
+    .bento__header-logo {
+      font-family: var(--v-font-broad);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--v-color-foreground-tertiary);
+      margin-bottom: var(--v-space-8);
+    }
+
+    .bento__header-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--v-space-4);
+    }
+
+    .bento__header-subtitle {
+      font-size: 14px;
+      color: var(--v-color-foreground-secondary);
+      font-weight: 400;
     }
 
     .zone-heroes {
@@ -200,27 +229,6 @@
     .tile--accent-convenience { border-left: 2px solid var(--v-color-surface-accent-blue); }
     .tile--accent-other { border-left: 2px solid var(--v-color-foreground-tertiary); }
 
-    .footer {
-      grid-column: 1 / 4;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: var(--v-space-24);
-    }
-
-    .footer__logo {
-      font-family: var(--v-font-broad);
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--v-color-foreground-tertiary);
-    }
-
-    .footer__title {
-      font-size: 12px;
-      color: var(--v-color-foreground-tertiary);
-    }
   </style>
 </head>
 <body>
@@ -236,7 +244,14 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
 
   const heroClasses = ['hero-1', 'hero-2', 'hero-3'];
 
-  let html = '<div class="zone-heroes">';
+  let html = `
+    <div class="bento__header">
+      <p class="bento__header-logo">V O L V O</p>
+      <h1 class="bento__header-title">${data.release.title}</h1>
+      <p class="bento__header-subtitle">${data.release.subtitle} · ${data.release.quarter}</p>
+    </div>`;
+
+  html += '<div class="zone-heroes">';
   heroes.forEach((f, i) => {
     html += `
       <div class="tile tile--hero ${heroClasses[i]}">
@@ -278,12 +293,6 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
       </div>`;
   });
   html += '</div>';
-
-  html += `
-    <div class="footer">
-      <span class="footer__logo">V O L V O</span>
-      <span class="footer__title">${data.release.title} — ${data.release.subtitle}</span>
-    </div>`;
 
   document.getElementById('bento').innerHTML = html;
 });
