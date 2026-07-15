@@ -507,14 +507,27 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
     document.body.style.overflow = '';
   }
 
-  // Attach click handlers to all tiles
+  // Event delegation — handles clicks on any child inside a tile
+  document.addEventListener('click', (e) => {
+    // Check if click is inside a tile with a feature ID
+    const tile = e.target.closest('[data-feature-id]');
+    if (tile) {
+      e.preventDefault();
+      openSheet(tile.dataset.featureId);
+      return;
+    }
+    // Close on scrim click
+    if (e.target === scrim) {
+      closeSheet();
+    }
+  });
+
+  // Style all tiles as clickable
   document.querySelectorAll('[data-feature-id]').forEach(tile => {
     tile.style.cursor = 'pointer';
-    tile.addEventListener('click', () => openSheet(tile.dataset.featureId));
   });
 
   sheetClose.addEventListener('click', closeSheet);
-  scrim.addEventListener('click', closeSheet);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 });
 </script>
