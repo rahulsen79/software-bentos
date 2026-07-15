@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-mode="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,102 +7,138 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      /* Volvo Design System Tokens (Centenary dark mode) */
+      --v-color-foreground-primary: #ffffff;
+      --v-color-foreground-secondary: #969696;
+      --v-color-foreground-tertiary: #787878;
+      --v-color-foreground-inverted: #000000;
+      --v-color-background-primary: #000000;
+      --v-color-background-secondary: #171717;
+      --v-color-ornament-primary: rgb(100% 100% 100% / 0.16);
+      --v-color-surface-accent-blue: #3354ff;
+      --v-color-surface-accent-safety: #fc6408;
+      --v-color-surface-feedback-green: #048220;
+      --v-color-surface-feedback-red: #e52715;
+      --v-color-state-primary-subtle: rgb(100% 100% 100% / 0.08);
+      --v-color-state-primary-medium: rgb(100% 100% 100% / 0.16);
+
+      /* Spacing */
+      --v-space-2: 0.125rem;
+      --v-space-4: 0.25rem;
+      --v-space-8: 0.5rem;
+      --v-space-12: 0.75rem;
+      --v-space-16: 1rem;
+      --v-space-24: 1.5rem;
+      --v-space-32: 2rem;
+      --v-space-48: 3rem;
+      --v-space-64: 4rem;
+
+      /* Shape */
+      --v-shape-default: 0px;
+      --v-shape-emphasis: 9999px;
+
+      /* Font */
+      --v-font-sans: "Volvo Centum", "Helvetica Neue", "Helvetica", "Noto Sans", "Segoe UI", "Arial", sans-serif;
+      --v-font-broad: "Volvo Broad Pro", "Volvo Broad", "Arial Black", sans-serif;
+    }
+
     body {
-      background: #0a0a0a;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #fff;
+      background: var(--v-color-background-primary);
+      font-family: var(--v-font-sans);
+      color: var(--v-color-foreground-primary);
       min-height: 100vh;
     }
 
     /* === HEADER === */
     .header {
-      padding: 60px 48px 40px;
+      padding: var(--v-space-64) var(--v-space-48) var(--v-space-48);
       max-width: 1400px;
       margin: 0 auto;
     }
 
     .header__logo {
+      font-family: var(--v-font-broad);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 16px;
+      color: var(--v-color-foreground-tertiary);
+      margin-bottom: var(--v-space-24);
     }
 
     .header__title {
-      font-size: 48px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 8px;
+      font-size: clamp(2rem, 2.143vw + 1.357rem, 3.5rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: calc(1em + 0.5rem);
+      margin-bottom: var(--v-space-8);
     }
 
     .header__subtitle {
-      font-size: 18px;
-      color: rgba(255,255,255,0.5);
+      font-size: 16px;
+      color: var(--v-color-foreground-secondary);
       font-weight: 400;
+      line-height: 1.5;
     }
 
     /* === SECTIONS === */
     .section {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 48px 60px;
+      padding: 0 var(--v-space-48) var(--v-space-64);
     }
 
     .section__label {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 20px;
-      padding-left: 4px;
+      color: var(--v-color-foreground-tertiary);
+      margin-bottom: var(--v-space-24);
     }
 
     /* === HERO GRID === */
     .grid-heroes {
       display: grid;
       grid-template-columns: 1.5fr 1fr 1fr;
-      grid-template-rows: 400px;
-      gap: 16px;
+      grid-template-rows: 420px;
+      gap: var(--v-space-2);
     }
 
     /* === MEDIUM GRID === */
     .grid-medium {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: var(--v-space-2);
     }
 
     /* === SMALL GRID === */
     .grid-small {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: var(--v-space-2);
     }
 
     /* === TILES === */
     .tile {
-      border-radius: 16px;
+      border-radius: var(--v-shape-default);
       overflow: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 32px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: var(--v-space-32);
+      transition: background 0.2s ease;
     }
 
     .tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      background: var(--v-color-state-primary-subtle);
     }
 
     /* Heroes */
     .tile--hero {
-      min-height: 400px;
+      min-height: 420px;
       background-size: cover;
       background-position: center;
       cursor: pointer;
@@ -112,81 +148,102 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
       z-index: 1;
     }
 
     .tile--hero .tile__content { position: relative; z-index: 2; }
 
-    .hero-0 { background: linear-gradient(135deg, #1a237e, #283593, #0d47a1); }
-    .hero-1 { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
-    .hero-2 { background: linear-gradient(135deg, #b71c1c, #d32f2f); }
+    .hero-0 { background: linear-gradient(160deg, #0a0f2e 0%, #131d5c 100%); }
+    .hero-1 { background: linear-gradient(160deg, #0a1f0a 0%, #153015 100%); }
+    .hero-2 { background: linear-gradient(160deg, #2a0a0a 0%, #401515 100%); }
+
+    .tile--hero:hover { opacity: 0.95; }
 
     /* Medium */
     .tile--medium {
-      background: #161616;
-      border: 1px solid rgba(255,255,255,0.06);
-      min-height: 260px;
+      background: var(--v-color-background-secondary);
+      border: 1px solid var(--v-color-ornament-primary);
+      min-height: 280px;
       cursor: pointer;
     }
 
     .tile--medium .tile__icon {
-      font-size: 40px;
-      margin-bottom: 16px;
+      font-size: 36px;
+      margin-bottom: var(--v-space-16);
     }
 
     /* Small */
     .tile--small {
-      background: #141414;
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
+      background: var(--v-color-background-secondary);
+      border: 1px solid var(--v-color-ornament-primary);
+      border-radius: var(--v-shape-default);
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
-      padding: 20px 24px;
-      gap: 16px;
+      padding: var(--v-space-24);
+      gap: var(--v-space-16);
       cursor: default;
     }
 
     .tile--small .tile__icon { font-size: 22px; flex-shrink: 0; }
 
-    /* Typography */
+    /* Typography — Volvo scale */
     .tile__headline {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: var(--v-space-4);
     }
 
-    .tile--hero .tile__headline { font-size: 36px; margin-bottom: 8px; }
-    .hero-0 .tile__headline { font-size: 44px; }
-    .tile--small .tile__headline { font-size: 15px; font-weight: 600; }
+    .tile--hero .tile__headline {
+      font-size: clamp(1.5rem, 0.714vw + 1.286rem, 2rem);
+      font-weight: 400;
+      line-height: calc(1em + 0.5rem);
+      margin-bottom: var(--v-space-8);
+    }
+
+    .hero-0 .tile__headline {
+      font-size: clamp(2rem, 2.143vw + 1.357rem, 3.5rem);
+    }
+
+    .tile--small .tile__headline { font-size: 14px; font-weight: 400; }
 
     .tile__subheadline {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.5;
-      margin-bottom: 16px;
+      color: var(--v-color-foreground-secondary);
+      line-height: 1.572;
+      margin-bottom: var(--v-space-16);
     }
 
     .tile--medium .tile__subheadline { font-size: 14px; }
 
-    /* Tags */
-    .tile__tags { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 5px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); }
-    .tag--safety { background: #e53935; color: #fff; }
-    .tag--platform { background: #7c4dff; color: #fff; }
-    .tag--sustainability { background: #43a047; color: #fff; }
-    .tag--convenience { background: #1e88e5; color: #fff; }
-    .tag--ux { background: #ff8f00; color: #fff; }
-    .tag--new { background: #00bcd4; color: #fff; }
-    .tag--spa { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+    /* Tags — pill shape */
+    .tile__tags { display: flex; gap: var(--v-space-8); align-items: center; flex-wrap: wrap; }
 
-    .tile--accent-safety { border-left: 3px solid #e53935; }
-    .tile--accent-convenience { border-left: 3px solid #1e88e5; }
-    .tile--accent-other { border-left: 3px solid #444; }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: var(--v-shape-emphasis);
+      background: var(--v-color-state-primary-subtle);
+      color: var(--v-color-foreground-secondary);
+    }
+
+    .tag--safety { background: var(--v-color-surface-accent-safety); color: #000; }
+    .tag--platform { background: var(--v-color-surface-accent-blue); color: #fff; }
+    .tag--sustainability { background: var(--v-color-surface-feedback-green); color: #fff; }
+    .tag--convenience { background: var(--v-color-surface-accent-blue); color: #fff; opacity: 0.8; }
+    .tag--ux { background: var(--v-color-foreground-tertiary); color: #000; }
+    .tag--new { background: var(--v-color-foreground-primary); color: #000; }
+    .tag--spa { background: transparent; border: 1px solid var(--v-color-ornament-primary); color: var(--v-color-foreground-tertiary); }
+
+    .tile--accent-safety { border-left: 2px solid var(--v-color-surface-accent-safety); }
+    .tile--accent-convenience { border-left: 2px solid var(--v-color-surface-accent-blue); }
+    .tile--accent-other { border-left: 2px solid var(--v-color-foreground-tertiary); }
 
     /* Responsive */
     @media (max-width: 1100px) {
@@ -196,9 +253,8 @@
     }
 
     @media (max-width: 700px) {
-      .header { padding: 40px 24px 30px; }
-      .header__title { font-size: 32px; }
-      .section { padding: 0 24px 40px; }
+      .header { padding: var(--v-space-32) var(--v-space-24) var(--v-space-24); }
+      .section { padding: 0 var(--v-space-24) var(--v-space-48); }
       .grid-heroes { grid-template-columns: 1fr; }
       .hero-0 { grid-column: 1; }
       .grid-medium { grid-template-columns: 1fr; }
@@ -208,7 +264,7 @@
 </head>
 <body>
 
-<a href="index.html" style="position:fixed;top:20px;left:24px;z-index:100;color:rgba(255,255,255,0.6);text-decoration:none;font-family:Georgia,serif;font-size:14px;display:flex;align-items:center;gap:6px;">← <span>back</span></a>
+<a href="index.html" style="position:fixed;top:20px;left:24px;z-index:100;color:var(--v-color-foreground-secondary);text-decoration:none;font-family:Georgia,serif;font-size:14px;display:flex;align-items:center;gap:6px;">← <span>back</span></a>
 
 <header class="header" id="header"></header>
 <section class="section" id="heroes-section"></section>
