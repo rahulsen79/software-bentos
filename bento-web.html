@@ -175,6 +175,7 @@
       margin-bottom: var(--v-space-16);
     }
 
+
     /* Small */
     .tile--small {
       background: var(--v-color-background-secondary);
@@ -195,7 +196,7 @@
       font-size: 26px;
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: var(--v-space-8);
+      margin-bottom: var(--v-space-12);
       letter-spacing: -0.02em;
       text-wrap: balance;
     }
@@ -204,7 +205,7 @@
       font-size: clamp(2rem, 1.5vw + 1.5rem, 2.5rem);
       font-weight: 700;
       line-height: 1.1;
-      margin-bottom: var(--v-space-8);
+      margin-bottom: var(--v-space-12);
     }
 
     .hero-0 .tile__headline {
@@ -285,7 +286,7 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
 
   // Header
   document.getElementById('header').innerHTML = `
-    <div class="header__logo"><img src="https://theoceanrace.s3.amazonaws.com/original/m144223_volvo-new-logo-color.png" alt="Volvo" style="height:40px;filter:invert(1);"></div>
+    <div class="header__logo"><img src="https://theoceanrace.s3.amazonaws.com/original/m144223_volvo-new-logo-color.png" alt="Volvo" style="height:60px;filter:invert(1);"></div>
     <h1 class="header__title">${data.release.title}</h1>
     <p class="header__subtitle">${data.release.subtitle}</p>
   `;

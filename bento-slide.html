@@ -147,7 +147,7 @@
       border: 1px solid var(--v-color-ornament-primary);
     }
 
-    .tile--medium .tile__icon { font-size: 32px; margin-bottom: var(--v-space-12); }
+    .tile--medium .tile__icon { font-size: 32px; margin-bottom: var(--v-space-16); }
 
     .tile--small {
       background: var(--v-color-background-secondary);
@@ -168,7 +168,7 @@
       font-size: 24px;
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: var(--v-space-8);
+      margin-bottom: var(--v-space-12);
       letter-spacing: -0.02em;
       text-wrap: balance;
     }
@@ -177,7 +177,7 @@
       font-size: 36px;
       font-weight: 700;
       line-height: 1.1;
-      margin-bottom: var(--v-space-8);
+      margin-bottom: var(--v-space-12);
     }
 
     .hero-1 .tile__headline { font-size: 48px; }
@@ -202,6 +202,7 @@
       line-height: 1.5;
       margin-bottom: var(--v-space-16);
     }
+
 
     /* Tags — pill shape per Volvo emphasis */
     .tile__tags { display: flex; gap: var(--v-space-8); align-items: center; flex-wrap: wrap; }
@@ -246,7 +247,7 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
 
   let html = `
     <div class="bento__header">
-      <p class="bento__header-logo"><img src="https://theoceanrace.s3.amazonaws.com/original/m144223_volvo-new-logo-color.png" alt="Volvo" style="height:40px;filter:invert(1);"></p>
+      <p class="bento__header-logo"><img src="https://theoceanrace.s3.amazonaws.com/original/m144223_volvo-new-logo-color.png" alt="Volvo" style="height:60px;filter:invert(1);"></p>
       <h1 class="bento__header-title">${data.release.title}</h1>
       <p class="bento__header-subtitle">${data.release.subtitle} · ${data.release.quarter}</p>
     </div>`;
