@@ -266,6 +266,123 @@
       .grid-medium { grid-template-columns: 1fr; }
       .grid-small { grid-template-columns: 1fr; }
     }
+    /* === OVERLAY / SIDE SHEET === */
+    .overlay-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.64);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay-scrim.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .side-sheet {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(520px, 85vw);
+      background: var(--v-color-background-secondary);
+      z-index: 60;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-sheet.is-open {
+      transform: translateX(0);
+    }
+
+    .side-sheet__header {
+      display: flex;
+      justify-content: flex-end;
+      padding: var(--v-space-24) var(--v-space-32);
+      position: sticky;
+      top: 0;
+      background: var(--v-color-background-secondary);
+      z-index: 2;
+    }
+
+    .side-sheet__close {
+      background: none;
+      border: 1px solid var(--v-color-ornament-primary);
+      color: var(--v-color-foreground-primary);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: var(--v-shape-default);
+      transition: background 0.2s;
+    }
+
+    .side-sheet__close:hover {
+      background: var(--v-color-state-primary-subtle);
+    }
+
+    .side-sheet__body {
+      padding: 0 var(--v-space-32) var(--v-space-48);
+      flex: 1;
+    }
+
+    .side-sheet__icon {
+      font-size: 48px;
+      margin-bottom: var(--v-space-24);
+    }
+
+    .side-sheet__title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--v-space-16);
+      text-wrap: balance;
+    }
+
+    .side-sheet__description {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--v-color-foreground-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--v-space-32);
+      text-wrap: pretty;
+    }
+
+    .side-sheet__tags {
+      display: flex;
+      gap: var(--v-space-8);
+      flex-wrap: wrap;
+      margin-bottom: var(--v-space-32);
+    }
+
+    .side-sheet__meta {
+      border-top: 1px solid var(--v-color-ornament-primary);
+      padding-top: var(--v-space-24);
+    }
+
+    .side-sheet__meta-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--v-color-foreground-tertiary);
+      margin-bottom: var(--v-space-8);
+    }
+
+    .side-sheet__meta-value {
+      font-size: 14px;
+      color: var(--v-color-foreground-secondary);
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -277,6 +394,16 @@
 <section class="section" id="heroes-section"></section>
 <section class="section" id="medium-section"></section>
 <section class="section" id="small-section"></section>
+
+<div class="overlay-scrim" id="scrim"></div>
+<div class="side-sheet" id="sideSheet">
+  <div class="side-sheet__header">
+    <button class="side-sheet__close" id="sheetClose">
+      <span class="material-symbols-outlined" style="font-size:20px;">close</span>
+    </button>
+  </div>
+  <div class="side-sheet__body" id="sheetBody"></div>
+</div>
 
 <script>
 fetch('bento-data.json').then(r => r.json()).then(data => {
@@ -295,7 +422,7 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
   let heroHtml = '<p class="section__label">Highlights</p><div class="grid-heroes">';
   heroes.forEach((f, i) => {
     heroHtml += `
-      <div class="tile tile--hero hero-${i}">
+      <div class="tile tile--hero hero-${i}" data-feature-id="${f.id}">
         <div class="tile__content">
           <h2 class="tile__headline">${f.headline}</h2>
           <p class="tile__subheadline">${f.subheadline}</p>
@@ -313,7 +440,7 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
   let medHtml = '<p class="section__label">Also in this release</p><div class="grid-medium">';
   mediums.forEach(f => {
     medHtml += `
-      <div class="tile tile--medium">
+      <div class="tile tile--medium" data-feature-id="${f.id}">
         <div class="tile__content">
           <div class="tile__icon">${f.icon}</div>
           <h2 class="tile__headline">${f.headline}</h2>
@@ -332,13 +459,63 @@ fetch('bento-data.json').then(r => r.json()).then(data => {
   let smallHtml = '<p class="section__label">More updates</p><div class="grid-small">';
   smalls.forEach(f => {
     smallHtml += `
-      <div class="tile tile--small tile--accent-${f.accent}">
+      <div class="tile tile--small tile--accent-${f.accent}" data-feature-id="${f.id}">
         <span class="tile__icon">${f.icon}</span>
         <span class="tile__headline">${f.headline}</span>
       </div>`;
   });
   smallHtml += '</div>';
   document.getElementById('small-section').innerHTML = smallHtml;
+
+  // === SIDE SHEET LOGIC ===
+  const allFeatures = data.features;
+  const scrim = document.getElementById('scrim');
+  const sheet = document.getElementById('sideSheet');
+  const sheetBody = document.getElementById('sheetBody');
+  const sheetClose = document.getElementById('sheetClose');
+
+  function openSheet(featureId) {
+    const f = allFeatures.find(x => x.id === featureId);
+    if (!f) return;
+
+    const iconHtml = f.icon ? `<div class="side-sheet__icon">${f.icon}</div>` : '';
+    const tagHtml = f.tag ? `<span class="tag tag--${f.tagColor}">${f.tag}</span>` : '';
+    const platformHtml = f.platform ? `<span class="tag tag--spa">${f.platform}</span>` : '';
+
+    sheetBody.innerHTML = `
+      ${iconHtml}
+      <h2 class="side-sheet__title">${f.headline}</h2>
+      <p class="side-sheet__description">${f.subheadline || ''}</p>
+      <div class="side-sheet__tags">
+        ${tagHtml}
+        ${platformHtml}
+      </div>
+      <div class="side-sheet__meta">
+        <p class="side-sheet__meta-label">Feature ID</p>
+        <p class="side-sheet__meta-value">${f.id}</p>
+      </div>
+    `;
+
+    scrim.classList.add('is-open');
+    sheet.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSheet() {
+    scrim.classList.remove('is-open');
+    sheet.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Attach click handlers to all tiles
+  document.querySelectorAll('[data-feature-id]').forEach(tile => {
+    tile.style.cursor = 'pointer';
+    tile.addEventListener('click', () => openSheet(tile.dataset.featureId));
+  });
+
+  sheetClose.addEventListener('click', closeSheet);
+  scrim.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 });
 </script>
 </body>
